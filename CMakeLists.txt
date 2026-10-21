@@ -3,8 +3,8 @@ project(data_structre)
 
 set(CMAKE_CXX_STANDARD 20)
 
-add_executable(data_structre recursion/factorial.cpp)
+add_executable(factorial recursion/factorial.cpp)
+add_executable(fibonacci recursion/fibonacci.cpp)
+add_executable(sum recursion/sum.cpp)
+add_executable(vector_demo vector/vector.cpp)
 
-add_executable(data_structre recursion/fibonacci.cpp)
-
-add_executable(data_structre recursion/sum.cpp)
