@@ -18,15 +18,15 @@ namespace {
          * @param <int> (new_capacity_): how big is the new size of the new array
          * @return void
          */
-        void resize(const int new_capacity_) {
-            VectorDataType *new_v_array_ = new VectorDataType[new_capacity_];
+        void resize(const int new_capacity) {
+            VectorDataType *new_v_array = new VectorDataType[new_capacity];
             for (int i = 0; i < size_; ++i) {
-                new_v_array_[i] = v_array_[i];
+                new_v_array[i] = v_array_[i];
             }
 
             delete[] v_array_;
-            v_array_ = new_v_array_;
-            capacity_ = new_capacity_;
+            v_array_ = new_v_array;
+            capacity_ = new_capacity;
         }
 
     public:
@@ -81,7 +81,7 @@ namespace {
          */
         VectorDataType at(const int index) const {
             if (index >= size_) {
-               return 0;
+                return 0;
             }
             return v_array_[index];
         }
@@ -134,7 +134,7 @@ int main() {
     vec1.push_back(99);
     cout << "The vector cap is: " << vec1.capacity() << endl;
     cout << "The current vector size is: " << vec1.size() << endl;
-    cout <<  vec1.at(5) << endl;
+    cout << vec1.at(5) << endl;
     cout << "The first item in the vector is: " << vec1.front() << endl;
     cout << "The last item in the vector is: " << vec1.back() << endl;
     cout << "The pointer to the array used to store the vector: " << vec1.data() << endl;
