@@ -5,28 +5,28 @@ namespace {
     template<typename VectorDataType>
     class vector {
         // bc array is just a pointer to the first element in it
-        VectorDataType *data_ = nullptr;
+        VectorDataType *_data = nullptr;
 
         // to resize the array when hitting the current array size cap
-        int capacity_ = 0;
+        int _capacity = 0;
 
         // tracking how many items are currently in the vector
-        int size_ = 0;
+        int _size = 0;
 
         /*
-         * If we hit the current array cap create a new array with its capacity = to the old size_ * 2
+         * If we hit the current array cap create a new array with its capacity = to the old _size * 2
          * @param <int> (new_capacity): how big is the new size of the new array
          * @return void
          */
         void resize(const int new_capacity) {
             VectorDataType *new_data = new VectorDataType[new_capacity];
-            for (int i = 0; i < size_; ++i) {
-                new_data[i] = data_[i];
+            for (int i = 0; i < _size; ++i) {
+                new_data[i] = _data[i];
             }
 
-            delete[] data_;
-            data_ = new_data;
-            capacity_ = new_capacity;
+            delete[] _data;
+            _data = new_data;
+            _capacity = new_capacity;
         }
 
     public:
@@ -35,20 +35,20 @@ namespace {
          * @param <VectorDataType> (value): the new value that u want to store in the vector
          */
         void push_back(const VectorDataType &value) {
-            if (size_ >= capacity_) {
-                const int new_cap = size_ == 0 ? 1 : size_ * 2;
+            if (_size >= _capacity) {
+                const int new_cap = _size == 0 ? 1 : _size * 2;
                 resize(new_cap);
             }
-            data_[size_] = value;
-            size_++;
+            _data[_size] = value;
+            _size++;
         }
 
         /*
          * remove the last item in the vector array
          */
         void pop_back() {
-            if (size_ == 0) return;
-            size_--;
+            if (_size == 0) return;
+            _size--;
         }
 
         /*
@@ -56,7 +56,7 @@ namespace {
          * @param <int> (new_cap): the new capacity for the vector array
          */
         void reserve(const int new_cap) {
-            if (new_cap <= capacity_) {
+            if (new_cap <= _capacity) {
                 return;
             }
             resize(new_cap);
@@ -64,14 +64,14 @@ namespace {
 
         // shrink the size of vector array to be exactly as the number of items in it
         void shrink_to_fit() {
-            if (capacity_ > size_) {
-                resize(size_);
+            if (_capacity > _size) {
+                resize(_size);
             }
         }
 
         // remove all items from the vector
         void clear() {
-            size_ = 0;
+            _size = 0;
         }
 
         /*
@@ -80,47 +80,47 @@ namespace {
          * @return <VectorDataType> : the value at the index given
          */
         VectorDataType at(const int index) const {
-            if (index >= size_) {
+            if (index >= _size) {
                 throw out_of_range("Out of range, try smaller index");
             }
-            return data_[index];
+            return _data[index];
         }
 
         // @return the current size
         int size() const {
-            return size_;
+            return _size;
         }
 
         // @return the array capacity limit
         int capacity() const {
-            return capacity_;
+            return _capacity;
         }
 
         // @return the array pointer which is the fist item pointer
         VectorDataType *data() const {
-            return data_;
+            return _data;
         }
 
         // @return the item at the start of the vector
         VectorDataType front() const {
-            return data_[0];
+            return _data[0];
         }
 
         // @return the item at the end of the vector
         VectorDataType back() const {
-            return data_[size_ - 1];
+            return _data[_size - 1];
         }
 
         // @return <bool> : true if the vector is empty and false if not
         bool empty() const {
-            if (size_ == 0) {
+            if (_size == 0) {
                 return true;
             }
             return false;
         }
 
 
-        ~vector() { delete[] data_; }
+        ~vector() { delete[] _data; }
     };
 }
 
