@@ -5,7 +5,7 @@ namespace {
     template<typename VectorDataType>
     class vector {
         // bc array is just a pointer to the first element in it
-        VectorDataType *data_ = nullptr;
+        VectorDataType *v_array_ = nullptr;
 
         // to resize the array when hitting the current array size cap
         int capacity_ = 0;
@@ -15,18 +15,18 @@ namespace {
 
         /*
          * If we hit the current array cap create a new array with its capacity = to the old size_ * 2
-         * @param <int> (new_capacity): how big is the new size of the new array
+         * @param <int> (new_capacity_): how big is the new size of the new array
          * @return void
          */
-        void resize(const int new_capacity) {
-            VectorDataType *new_data = new VectorDataType[new_capacity];
+        void resize(const int new_capacity_) {
+            VectorDataType *new_v_array_ = new VectorDataType[new_capacity_];
             for (int i = 0; i < size_; ++i) {
-                new_data[i] = data_[i];
+                new_v_array_[i] = v_array_[i];
             }
 
-            delete[] data_;
-            data_ = new_data;
-            capacity_ = new_capacity;
+            delete[] v_array_;
+            v_array_ = new_v_array_;
+            capacity_ = new_capacity_;
         }
 
     public:
@@ -39,7 +39,7 @@ namespace {
                 const int new_cap = size_ == 0 ? 1 : size_ * 2;
                 resize(new_cap);
             }
-            data_[size_] = value;
+            v_array_[size_] = value;
             size_++;
         }
 
@@ -77,13 +77,13 @@ namespace {
         /*
          * return the value of the item at the given index
          * @param <int> (index): the index u want to see the value at
-         * @return <VectorDataType> : the value at the index given
+         * @return <VectorDataType> : the value at the index given. if the return is 0 then its out of bond
          */
         VectorDataType at(const int index) const {
             if (index >= size_) {
-                throw out_of_range("Out of range, try smaller index");
+               return 0;
             }
-            return data_[index];
+            return v_array_[index];
         }
 
         // @return the current size
@@ -98,17 +98,17 @@ namespace {
 
         // @return the array pointer which is the fist item pointer
         VectorDataType *data() const {
-            return data_;
+            return v_array_;
         }
 
         // @return the item at the start of the vector
         VectorDataType front() const {
-            return data_[0];
+            return v_array_[0];
         }
 
         // @return the item at the end of the vector
         VectorDataType back() const {
-            return data_[size_ - 1];
+            return v_array_[size_ - 1];
         }
 
         // @return <bool> : true if the vector is empty and false if not
@@ -120,7 +120,7 @@ namespace {
         }
 
 
-        ~vector() { delete[] data_; }
+        ~vector() { delete[] v_array_; }
     };
 }
 
@@ -134,7 +134,7 @@ int main() {
     vec1.push_back(99);
     cout << "The vector cap is: " << vec1.capacity() << endl;
     cout << "The current vector size is: " << vec1.size() << endl;
-    // cout <<  vec1.at(1) << endl;
+    cout <<  vec1.at(5) << endl;
     cout << "The first item in the vector is: " << vec1.front() << endl;
     cout << "The last item in the vector is: " << vec1.back() << endl;
     cout << "The pointer to the array used to store the vector: " << vec1.data() << endl;
