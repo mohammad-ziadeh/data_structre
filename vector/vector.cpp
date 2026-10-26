@@ -15,18 +15,18 @@ namespace {
 
         /*
          * If we hit the current array cap create a new array with its capacity = to the old size_ * 2
-         * @param <int> (newcapacity_): how big is the new size of the new array
+         * @param <int> (new_capacity_): how big is the new size of the new array
          * @return void
          */
-        void resize(const int newcapacity_) {
-            VectorDataType *newdata_ = new VectorDataType[newcapacity_];
+        void resize(const int new_capacity_) {
+            VectorDataType *new_data_ = new VectorDataType[new_capacity_];
             for (int i = 0; i < size_; ++i) {
-                newdata_[i] = data_[i];
+                new_data_[i] = data_[i];
             }
 
             delete[] data_;
-            data_ = newdata_;
-            capacity_ = newcapacity_;
+            data_ = new_data_;
+            capacity_ = new_capacity_;
         }
 
     public:
