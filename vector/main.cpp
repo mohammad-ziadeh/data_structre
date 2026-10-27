@@ -3,7 +3,7 @@ using namespace std;
 
 namespace {
     template<typename VectorDataType>
-    class vector {
+    class main {
         // bc array is just a pointer to the first element in it
         VectorDataType *v_array_ = nullptr;
 
@@ -120,13 +120,13 @@ namespace {
         }
 
 
-        ~vector() { delete[] v_array_; }
+        ~main() { delete[] v_array_; }
     };
 }
 
 
 int main() {
-    vector<int> vec1;
+    main<int> vec1;
     vec1.push_back(3);
     vec1.push_back(7);
     vec1.push_back(55);

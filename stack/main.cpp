@@ -20,6 +20,8 @@ namespace {
         // stack size tracker
         int size_ = 0;
 
+        runtime_error empty_err_msg_ = runtime_error("the stack is empty!");
+
         /*
          * create a new bubble (node) and give its prev_node_ptr the value of the previous item pointer
          * @param <StackDataType> (val): the new value u want to store
@@ -57,6 +59,9 @@ namespace {
 
         // remove the item at the top of the stack
         void pop() {
+            if (empty()) {
+                throw empty_err_msg_;
+            }
             disconnect_node();
         }
 
@@ -82,7 +87,16 @@ namespace {
          * @return a reference to the head_->value
          */
         StackDataType &top() {
+            if (empty()) {
+                throw empty_err_msg_;
+            }
             return head_->value;
+        }
+
+        ~stack() {
+            while (!empty()) {
+                pop();
+            }
         }
     };
 }
@@ -99,9 +113,14 @@ int main() {
 
     cout << stack1.size() << endl;
 
-    stack1.pop();
-    stack1.pop();
-    stack1.pop();
+    try {
+        stack1.pop();
+        stack1.pop();
+        stack1.pop();
+        stack1.pop();
+    } catch (const runtime_error &err) {
+        cout << err.what() << endl;
+    }
 
     cout << stack1.size() << endl;
 
