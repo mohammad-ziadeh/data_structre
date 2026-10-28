@@ -6,12 +6,12 @@ namespace {
     class stack {
         /*
          * This is a bubble which is an item in the stack
-         * it will store the prev_node_ptr: which is a pointer to what come before this item
+         * it will store the next: which is a pointer to what come before this item
          * and value: is the value of this item
          */
         struct node {
             StackDataType value;
-            node *prev_node_ptr = nullptr;
+            node *next = nullptr;
         };
 
         // is a global pointer that always point to the item at the top
@@ -23,26 +23,26 @@ namespace {
         runtime_error empty_err_msg_ = runtime_error("the stack is empty!");
 
         /*
-         * create a new bubble (node) and give its prev_node_ptr the value of the previous item pointer
+         * create a new bubble (node) and give its next the value of the previous item pointer
          * @param <StackDataType> (val): the new value u want to store
          */
         void connect_node(const StackDataType &val) {
-            node *new_item = new node;
-            new_item->prev_node_ptr = head_;
-            new_item->value = val;
-            head_ = new_item;
+            node *new_node = new node;
+            new_node->next = head_;
+            new_node->value = val;
+            head_ = new_node;
             size_++;
         }
 
         /*
          * in case of a pop item it will create a temporary point that will store the old head_ to delete it later
-         * then it will give head_ the value of the popped node <prev_node_ptr> that the old head_ was pointing at
+         * then it will give head_ the value of the popped node <next> that the old head_ was pointing at
          * last delete the temp_old_head which is the old head_
          */
         void disconnect_node() {
             if (head_ == nullptr) return;
             const node *temp_old_head = head_;
-            head_ = head_->prev_node_ptr;
+            head_ = head_->next;
             delete temp_old_head;
             size_--;
         }
