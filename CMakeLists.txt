@@ -3,12 +3,11 @@ project(data_structre)
 
 set(CMAKE_CXX_STANDARD 20)
 
-add_executable(factorial recursion/factorial.cpp
-        luhn-algorithm/luhn.cpp
-)
+add_executable(factorial recursion/factorial.cpp)
 add_executable(fibonacci recursion/fibonacci.cpp)
 add_executable(sum recursion/sum.cpp)
 add_executable(vector vector/main.cpp)
 add_executable(stack stack/main.cpp)
 add_executable(queue queue/main.cpp)
 add_executable(luhn-algorithm luhn-algorithm/luhn.cpp)
+add_executable(roman_numeral_converter roman_numeral_converter/converter.cpp)
